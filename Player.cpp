@@ -2,8 +2,7 @@
 
 #include "Player.h"
 #include "utilities.h"
-#include <string.h>
-#include <string>
+#include <cstring>
 
 // char * name;
 // int level;
@@ -28,7 +27,7 @@ Player::Player(const char *playerName, const int maxHp, const int force)
     curHp = maxHp;
     coins = 0;
 }
-Player::Player(const Player &player)
+Player::Player(const Player& player)
 {
     int nameSize = strlen(player.name);
     name = new char[nameSize + 1];
@@ -49,7 +48,7 @@ Player::~Player()
     delete[] this->name;
 }
 // oprators
-Player &Player::operator=(const Player &player)
+Player& Player::operator=(const Player &player)
 {
     if (this == &player)
         return *this;
@@ -123,4 +122,9 @@ void Player::addCoins(const int coinsSize)
 void Player::buff(const int buffSize)
 {
     force += buffSize;
+}
+int main()
+{
+    Player *p1 = new Player("guy",300,2);
+    p1->printInfo();
 }
