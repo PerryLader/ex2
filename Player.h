@@ -12,8 +12,8 @@ class Player
 
 public:
     // constractors
-    Player() = delete;
-    Player(const char *playerName, const int maxHp = 100, const int force = 5);
+    Player::Player() = delete;
+    Player::Player(const char *playerName, const int maxHp = 100, const int force = 5);
     Player::Player(const Player &player);
 
     // distractor
