@@ -18,4 +18,8 @@ Player::~Player();
 Player &Player::operator=(const Player &player);
 
 //methods
+void Player::printInfo();
+void Player::levelUp();
+int Player::getLevel();
+void Player::buff(const int buffSize);
 };

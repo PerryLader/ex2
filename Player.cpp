@@ -1,6 +1,7 @@
 
 
 #include "Player.h"
+#include "utilities.h"
 #include <string.h>
 // char * name;
 // int level;
@@ -8,6 +9,9 @@
 // int maxHp;
 // int curHp;
 // int coins;
+
+
+//constractors
 Player::Player(const char *playerName, const int maxHp, const int force)
 {
     int nameSize = strlen(playerName);
@@ -38,6 +42,12 @@ Player::Player(const Player *player)
     this->curHp = this->maxHp;
     this->coins = player->coins;
 }
+//distractor
+Player::~Player()
+{
+    delete[] this->name;
+}
+//oprators
 Player &Player::operator=(const Player &player)
 {
     if (this == &player)
@@ -57,3 +67,26 @@ Player &Player::operator=(const Player &player)
     this->coins = player.coins;
     return *this;
 }
+//methods
+
+void Player::printInfo()
+{
+    printPlayerInfo(name,level,force,curHp,coins);
+}
+
+void Player::levelUp()
+{
+    if(level<=9)
+    {
+        level++;
+    }
+}
+int Player::getLevel()
+{
+    return level;
+}
+void Player::buff(const int buffSize)
+{
+    force+=buffSize;
+}
+
