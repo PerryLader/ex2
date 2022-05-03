@@ -12,27 +12,27 @@ class Player
 
 public:
     // constractors
-    Player::Player() = delete;
-    Player::Player(const char *playerName, const int maxHp = 100, const int force = 5);
-    Player::Player(const Player &player);
+    Player() = delete;
+    Player(const char *playerName, const int maxHp = 100, const int force = 5);
+    Player(const Player &player);
 
     // distractor
-    Player::~Player();
+    ~Player();
 
     // oprators
-    Player &Player::operator=(const Player &player);
+    Player& operator=(const Player &player);
 
     // methods
-    void Player::printInfo();
-    void Player::levelUp();
-    void Player::heal(const int healSize);
-    void Player::dmg(const int dmgSize);
-    int Player::getAttackStrength();
-    int Player::getLevel();
-    void Player::addCoins(const int coinsSize);
-    void Player::buff(const int buffSize);
-    bool Player::isKnockedOut();
-    bool Player::pay(const int coinsSize);
+    void printInfo();
+    void levelUp();
+    void heal(const int healSize);
+    void dmg(const int dmgSize);
+    int getAttackStrength();
+    int getLevel();
+    void addCoins(const int coinsSize);
+    void buff(const int buffSize);
+    bool isKnockedOut();
+    bool pay(const int coinsSize);
 };
 
 #endif
