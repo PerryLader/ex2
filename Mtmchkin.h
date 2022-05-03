@@ -12,12 +12,18 @@
  * MidGame - The game is still active and the player continues to encounter cards.
  * Win - The player reached level 10.
  * Loss - The player's HP is 0.
-*/
-enum class GameStatus{Win, Loss, MidGame};
+ */
+enum class GameStatus
+{
+    Win,
+    Loss,
+    MidGame
+};
 
-class Mtmchkin {
+class Mtmchkin
+{
 public:
-
+Mtmchkin& operator=(const Mtmchkin &game);
     /*
      * C'tor of the game:
      *
@@ -26,18 +32,26 @@ public:
      * @param numOfCards - Num of cards in the deck.
      * @result
      *      An instance of Mtmchkin
-    */
-    Mtmchkin(const char* playerName, const Card* cardsArray, int numOfCards);
+     */
+    Mtmchkin(const char *playerName, const Card *cardsArray, int numOfCards);
+
+    /*
+     * defult constractor should not be allowed
+     *
+     */
+    Mtmchkin() = delete;
+    Mtmchkin(const Mtmchkin &game) = delete;
 
 
+
+    
     /*
      * Play the next Card - according to the instruction in the exercise document
      *
      * @return
      *      void
-    */
+     */
     void playNextCard();
-
 
     /*
      *  Check if the game ended:
@@ -48,7 +62,6 @@ public:
      */
     bool isOver();
 
-
     /*
      *  Get the status of the game:
      *
@@ -57,12 +70,12 @@ public:
      */
     GameStatus getGameStatus() const;
 
-    //TODO: complete the Mtmchkin class.
+    void runGame();
 
 private:
-    //TODO: complete the Mtmchkin class.
-
+    Player m_player;
+    Card *m_cards;
+    GameStatus m_gameStatus;
 };
 
-
-#endif //EX2_GAME_H
+#endif // EX2_GAME_H

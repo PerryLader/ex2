@@ -111,7 +111,7 @@ void Player::heal(const int healSize)
         curHp = maxHp;
     }
 }
-void Player::dmg(const int dmgSize)
+void Player::damage(const int dmgSize)
 {
     curHp = curHp - dmgSize;
 }
@@ -123,8 +123,4 @@ void Player::buff(const int buffSize)
 {
     force += buffSize;
 }
-int main()
-{
-    Player *p1 = new Player("guy",300,2);
-    p1->printInfo();
-}
+

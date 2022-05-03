@@ -26,7 +26,7 @@ public:
     void printInfo();
     void levelUp();
     void heal(const int healSize);
-    void dmg(const int dmgSize);
+    void damage(const int dmgSize);
     int getAttackStrength();
     int getLevel();
     void addCoins(const int coinsSize);
