@@ -7,12 +7,15 @@ int curHp;
 int coins;
 
 public:
+//constractors
 Player(const char *playerName,const int maxHp=100,const int force=5);
+Player::Player(const Player *player);
 
+//distractor
+Player::~Player();
 
+//oprators
+Player &Player::operator=(const Player &player);
 
-
-
-
-
+//methods
 };
