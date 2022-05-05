@@ -19,11 +19,14 @@ void Card::applyEncounter(Player &player) const
         if (player.getAttackStrength() >= m_stats.force)
         {
             player.addCoins(m_stats.loot);
+            printBattleResult(true);
         }
         else
         {
-            player.dmg(m_stats.hpLossOnDefeat);
+            player.damage(m_stats.hpLossOnDefeat);
+            printBattleResult(false);
         }
+        printBattleResult(true);
     }
     else if (m_effect == CardType::Treasure)
     {
