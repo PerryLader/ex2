@@ -18,12 +18,18 @@ void Card::applyEncounter(Player &player) const
     {
         if (player.getAttackStrength() >= m_stats.force)
         {
-            player.addCoins(m_stats.loot);
+            if (m_stats.loot > 0)
+            {
+                player.addCoins(m_stats.loot);
+            }
             printBattleResult(true);
         }
         else
         {
-            player.damage(m_stats.hpLossOnDefeat);
+            if (m_stats.hpLossOnDefeat > 0)
+            {
+                player.damage(m_stats.hpLossOnDefeat);
+            }
             printBattleResult(false);
         }
         printBattleResult(true);
@@ -34,16 +40,22 @@ void Card::applyEncounter(Player &player) const
     }
     else if (m_effect == CardType::Heal)
     {
-        if (player.pay(m_stats.cost))
+        if (m_stats.heal > 0)
         {
-            player.heal(m_stats.heal);
+            if (player.pay(m_stats.cost))
+            {
+                player.heal(m_stats.heal);
+            }
         }
     }
     else if (m_effect == CardType::Buff)
     {
-        if (player.pay(m_stats.cost))
+        if (m_stats.buff > 0)
         {
-            player.buff(m_stats.buff);
+            if (player.pay(m_stats.cost))
+            {
+                player.buff(m_stats.buff);
+            }
         }
     }
 }

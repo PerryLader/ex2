@@ -1,40 +1,29 @@
-
-
-
-
-
 #include "Mtmchkin.h"
 
 static int cardsCounter;
 static int totalCards;
 
-
-
-
-
-Mtmchkin& Mtmchkin::operator=(const Mtmchkin &game)
+Mtmchkin &Mtmchkin::operator=(const Mtmchkin &game)
 {
-     if (this == &game)
+    if (this == &game)
         return *this;
     delete &m_player;
     delete[] m_cards;
-    m_player=game.m_player;
+    m_player = game.m_player;
     for (int i = 0; i < totalCards; i++)
     {
-         m_cards[i] = *(new Card(game.m_cards[i]));
+        m_cards[i] = *(new Card(game.m_cards[i]));
     }
-    m_gameStatus=game.m_gameStatus;
+    m_gameStatus = game.m_gameStatus;
     return *this;
-    
-
 }
 
 // constractors
 
 Mtmchkin::Mtmchkin(const char *playerName, const Card *cardsArray, int numOfCards)
 {
-    
-    m_player = *(new Player(playerName,100,5));
+
+    m_player = *(new Player(playerName, 100, 5));
     for (int i = 0; i < numOfCards; i++)
     {
         m_cards[i] = *(new Card(cardsArray[i]));
@@ -43,9 +32,6 @@ Mtmchkin::Mtmchkin(const char *playerName, const Card *cardsArray, int numOfCard
     cardsCounter = 0;
     totalCards = numOfCards;
 }
-
-
-
 
 // methods
 void Mtmchkin::playNextCard()
@@ -77,15 +63,15 @@ void Mtmchkin::runGame()
     {
 
         playNextCard();
-        if(m_player.getLevel()==10)
-        m_gameStatus=GameStatus::Win;
+        if (m_player.getLevel() == 10)
+            m_gameStatus = GameStatus::Win;
         if (m_player.isKnockedOut())
         {
-            m_gameStatus=GameStatus::Loss;
+            m_gameStatus = GameStatus::Loss;
         }
         m_player.printInfo();
     }
-    if(GameStatus()== GameStatus::Win)
+    if (GameStatus() == GameStatus::Win)
     {
         std::cout << "The player defeated all monsters and achieved eternal glory!";
     }
