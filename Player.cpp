@@ -4,7 +4,6 @@
 #include "utilities.h"
 #include <cstring>
 
-// constractors
 Player::Player(const char *playerName, const int maxHp, const int force)
 {
     int nameSize = strlen(playerName);
@@ -19,6 +18,7 @@ Player::Player(const char *playerName, const int maxHp, const int force)
     this->m_maxHp = maxHp;
     m_curHp = maxHp;
     m_coins = 0;
+    
 }
 Player::Player(const Player &player)
 {

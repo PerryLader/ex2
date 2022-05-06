@@ -12,15 +12,15 @@ class Player
 
 public:
     // constractors
-    // Player() = delete;
-    Player(const char *playerName = "Gandalf", const int maxHp = 100, const int force = 5);
+    Player()=delete ;
+    Player(const char *playerName, const int maxHp = 100, const int force = 5);
     Player(const Player &player);
 
     // distractor
     ~Player();
 
     // oprators
-    Player& operator=(const Player &player);
+    Player &operator=(const Player &player);
 
     // methods
     void printInfo();

@@ -20,17 +20,14 @@ Mtmchkin &Mtmchkin::operator=(const Mtmchkin &game)
 
 // constractors
 
-Mtmchkin::Mtmchkin(const char *playerName, const Card *cardsArray, int numOfCards)
+Mtmchkin::Mtmchkin(const char *playerName, const Card *cardsArray, int numOfCards) : m_player(playerName, 100, 5)
 {
-
-    m_player = *(new Player(playerName, 100, 5));
     m_cards = new Card[numOfCards]();
 
-    for (int i = 0; i < numOfCards; i++)
+    for (int i = 0; i < numOfCards - 1; i++)
     {
 
-        m_cards[i] = *(new Card(cardsArray[i]));
-       
+        m_cards[i] = cardsArray[i];
     }
     m_gameStatus = GameStatus::MidGame;
     cardsCounter = 0;
@@ -40,10 +37,7 @@ Mtmchkin::Mtmchkin(const char *playerName, const Card *cardsArray, int numOfCard
 // distractors
 Mtmchkin::~Mtmchkin()
 {
-    printf("\n-----------------------------heyyy----------------\n");
-    
     delete[] m_cards;
-    printf("\n-----------------------------heyyy2----------------\n");
 }
 
 // methods
