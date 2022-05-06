@@ -23,7 +23,7 @@ enum class GameStatus
 class Mtmchkin
 {
 public:
-Mtmchkin& operator=(const Mtmchkin &game);
+    Mtmchkin &operator=(const Mtmchkin &game);
     /*
      * C'tor of the game:
      *
@@ -39,12 +39,19 @@ Mtmchkin& operator=(const Mtmchkin &game);
      * defult constractor should not be allowed
      *
      */
+
+    
     Mtmchkin() = delete;
     Mtmchkin(const Mtmchkin &game) = delete;
 
-
-
     
+     /*
+     * di'tor of the game:
+     *
+     * a diconstractor of Mtmchkin
+     */
+    ~Mtmchkin();
+
     /*
      * Play the next Card - according to the instruction in the exercise document
      *

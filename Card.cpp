@@ -22,6 +22,7 @@ void Card::applyEncounter(Player &player) const
             {
                 player.addCoins(m_stats.loot);
             }
+            player.levelUp();
             printBattleResult(true);
         }
         else
@@ -32,7 +33,6 @@ void Card::applyEncounter(Player &player) const
             }
             printBattleResult(false);
         }
-        printBattleResult(true);
     }
     else if (m_effect == CardType::Treasure)
     {
