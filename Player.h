@@ -3,17 +3,17 @@
 
 class Player
 {
-    char *name;
-    int level;
-    int force;
-    int maxHp;
-    int curHp;
-    int coins;
+    char *m_name;
+    int m_level;
+    int m_force;
+    int m_maxHp;
+    int m_curHp;
+    int m_coins;
 
 public:
     // constractors
-    Player() = delete;
-    Player(const char *playerName, const int maxHp = 100, const int force = 5);
+    // Player() = delete;
+    Player(const char *playerName = "Gandalf", const int maxHp = 100, const int force = 5);
     Player(const Player &player);
 
     // distractor
