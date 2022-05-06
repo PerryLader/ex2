@@ -1,15 +1,9 @@
 #include "Card.h"
 
-Card::Card(CardType type, const CardStats &stats)
+Card::Card(CardType type, const CardStats &stats):
+m_effect(type),
+m_stats(stats.force,stats.hpLossOnDefeat,stats.cost,stats.heal,stats.buff,stats.loot)
 {
-    m_effect = type;
-
-    m_stats.force = stats.force;
-    m_stats.hpLossOnDefeat = stats.hpLossOnDefeat;
-    m_stats.loot = stats.loot;
-    m_stats.cost = stats.cost;
-    m_stats.heal = stats.heal;
-    m_stats.buff = stats.buff;
 }
 
 void Card::applyEncounter(Player &player) const
@@ -18,7 +12,7 @@ void Card::applyEncounter(Player &player) const
     {
         if (player.getAttackStrength() >= m_stats.force)
         {
-            if (m_stats.loot > 0)
+            if (m_stats.loot >= 0)
             {
                 player.addCoins(m_stats.loot);
             }
@@ -36,6 +30,7 @@ void Card::applyEncounter(Player &player) const
     }
     else if (m_effect == CardType::Treasure)
     {
+        if(m_stats.loot>=0)
         player.addCoins(m_stats.loot);
     }
     else if (m_effect == CardType::Heal)
