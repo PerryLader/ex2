@@ -24,23 +24,45 @@ Mtmchkin::Mtmchkin(const char *playerName, const Card *cardsArray, int numOfCard
 {
 
     m_player = *(new Player(playerName, 100, 5));
+    m_cards = new Card[numOfCards]();
+
     for (int i = 0; i < numOfCards; i++)
     {
+
         m_cards[i] = *(new Card(cardsArray[i]));
+       
     }
     m_gameStatus = GameStatus::MidGame;
     cardsCounter = 0;
     totalCards = numOfCards;
 }
 
+// distractors
+Mtmchkin::~Mtmchkin()
+{
+    printf("\n-----------------------------heyyy----------------\n");
+    
+    delete[] m_cards;
+    printf("\n-----------------------------heyyy2----------------\n");
+}
+
 // methods
 void Mtmchkin::playNextCard()
 {
+    m_cards[cardsCounter].printInfo();
     m_cards[cardsCounter].applyEncounter(m_player);
     if (cardsCounter == totalCards - 1)
         cardsCounter = 0;
     else
         cardsCounter++;
+    if (m_player.getLevel() == 10)
+        m_gameStatus = GameStatus::Win;
+    if (m_player.isKnockedOut())
+    {
+        m_gameStatus = GameStatus::Loss;
+    }
+
+    m_player.printInfo();
 }
 
 bool Mtmchkin::isOver()
@@ -50,7 +72,10 @@ bool Mtmchkin::isOver()
         return false;
     }
     else
+    {
         return true;
+        delete this;
+    }
 }
 
 GameStatus Mtmchkin::getGameStatus() const
@@ -63,13 +88,6 @@ void Mtmchkin::runGame()
     {
 
         playNextCard();
-        if (m_player.getLevel() == 10)
-            m_gameStatus = GameStatus::Win;
-        if (m_player.isKnockedOut())
-        {
-            m_gameStatus = GameStatus::Loss;
-        }
-        m_player.printInfo();
     }
     if (GameStatus() == GameStatus::Win)
     {
