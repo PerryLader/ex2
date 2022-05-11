@@ -40,22 +40,19 @@ void Card::applyEncounter(Player &player) const
     }
     else if (m_effect == CardType::Heal)
     {
-        if (m_stats.heal > 0)
-        {
+        
             if (player.pay(m_stats.cost))
             {
                 player.heal(m_stats.heal);
             }
-        }
+        
     }
     else if (m_effect == CardType::Buff)
     {
-        if (m_stats.buff > 0)
+
+        if (player.pay(m_stats.cost))
         {
-            if (player.pay(m_stats.cost))
-            {
-                player.buff(m_stats.buff);
-            }
+            player.buff(m_stats.buff);
         }
     }
 }

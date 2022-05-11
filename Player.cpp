@@ -4,6 +4,7 @@
 #include "utilities.h"
 #include <cstring>
 
+
 Player::Player(const char *playerName, const int maxHp, const int force)
 {
     int nameSize = strlen(playerName);
@@ -14,11 +15,27 @@ Player::Player(const char *playerName, const int maxHp, const int force)
     }
     m_name[nameSize] = '\0';
     m_level = 1;
-    this->m_force = force;
-    this->m_maxHp = maxHp;
-    m_curHp = maxHp;
+    if (force < 0)
+    {
+        this->m_force = 5;
+    }
+    else
+    {
+        this->m_force = force;
+    }
+
+    if (maxHp < 0)
+    {
+        this->m_maxHp = 100;
+        m_curHp = 100;
+    }
+    else
+    {
+        this->m_maxHp = maxHp;
+        m_curHp = maxHp;
+    }
+
     m_coins = 0;
-    
 }
 Player::Player(const Player &player)
 {
@@ -85,18 +102,17 @@ int Player::getAttackStrength()
 }
 bool Player::isKnockedOut()
 {
+
     return (m_curHp <= 0);
 }
 bool Player::pay(const int coinsSize)
 {
-    if (m_coins < coinsSize)
+    if (m_coins < coinsSize )
     {
         return false;
     }
-    if (coinsSize > 0)
-    {
-        m_coins -= coinsSize;
-    }
+    if(coinsSize > 0)
+    m_coins -= coinsSize;
     return true;
 }
 void Player::heal(const int healSize)
@@ -115,6 +131,10 @@ void Player::damage(const int dmgSize)
     if (dmgSize > 0)
     {
         m_curHp = m_curHp - dmgSize;
+    }
+    if (m_curHp < 0)
+    {
+        m_curHp = 0;
     }
 }
 void Player::addCoins(const int coinsSize)

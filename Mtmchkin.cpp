@@ -1,5 +1,5 @@
 #include "Mtmchkin.h"
-
+#include <iostream>
 static int cardsCounter;
 static int totalCards;
 
@@ -24,7 +24,7 @@ Mtmchkin::Mtmchkin(const char *playerName, const Card *cardsArray, int numOfCard
 {
     m_cards = new Card[numOfCards]();
 
-    for (int i = 0; i < numOfCards - 1; i++)
+    for (int i = 0; i <= numOfCards - 1; i++)
     {
 
         m_cards[i] = cardsArray[i];
@@ -43,9 +43,11 @@ Mtmchkin::~Mtmchkin()
 // methods
 void Mtmchkin::playNextCard()
 {
+    //std::cout << "cardcounter (" << cardsCounter << ")." << std::endl;
+     
     m_cards[cardsCounter].printInfo();
     m_cards[cardsCounter].applyEncounter(m_player);
-    if (cardsCounter == totalCards - 1)
+    if (cardsCounter >= totalCards - 1)
         cardsCounter = 0;
     else
         cardsCounter++;
