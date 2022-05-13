@@ -4,7 +4,12 @@
 #include "utilities.h"
 #include <cstring>
 
-Player::Player(const char *playerName, const int maxHp, const int force)
+Player::Player(const char *playerName, const int maxHp, const int force):
+m_level(1),
+m_force(force),
+m_maxHp(maxHp),
+m_curHp(maxHp),
+m_coins(0)
 {
     int nameSize = strlen(playerName);
     m_name = new char[nameSize + 1];
@@ -13,14 +18,14 @@ Player::Player(const char *playerName, const int maxHp, const int force)
         m_name[i] = playerName[i];
     }
     m_name[nameSize] = '\0';
-    m_level = 1;
-    this->m_force = force;
-    this->m_maxHp = maxHp;
-    m_curHp = maxHp;
-    m_coins = 0;
     
 }
-Player::Player(const Player &player)
+Player::Player(const Player &player):
+m_level(player.m_level),
+m_force(player.m_force),
+m_maxHp(player.m_maxHp),
+m_curHp(player.m_curHp),
+m_coins(player.m_coins)
 {
     int nameSize = strlen(player.m_name);
     m_name = new char[nameSize + 1];
@@ -29,11 +34,8 @@ Player::Player(const Player &player)
         m_name[i] = player.m_name[i];
     }
     m_name[nameSize] = '\0';
-    this->m_level = player.m_level;
-    this->m_force = player.m_force;
-    this->m_maxHp = player.m_maxHp;
-    this->m_curHp = player.m_curHp;
-    this->m_coins = player.m_coins;
+    
+    
 }
 // distractor
 Player::~Player()
@@ -89,14 +91,12 @@ bool Player::isKnockedOut()
 }
 bool Player::pay(const int coinsSize)
 {
-    if (m_coins < coinsSize)
+    if (m_coins < coinsSize || coinsSize < 0)
     {
         return false;
     }
-    if (coinsSize > 0)
-    {
-        m_coins -= coinsSize;
-    }
+
+    m_coins -= coinsSize;
     return true;
 }
 void Player::heal(const int healSize)

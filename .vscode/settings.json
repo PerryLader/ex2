@@ -5,6 +5,13 @@
         "xhash": "cpp",
         "xmemory": "cpp",
         "xutility": "cpp",
-        "functional": "cpp"
+        "functional": "cpp",
+        "compare": "cpp",
+        "memory": "cpp",
+        "tuple": "cpp",
+        "type_traits": "cpp",
+        "utility": "cpp",
+        "xstring": "cpp",
+        "xtr1common": "cpp"
     }
 }
