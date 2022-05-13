@@ -1,50 +1,50 @@
 #include "Card.h"
 
-Card::Card(CardType type, const CardStats &stats):
-m_effect(type),
-m_stats(stats.force,stats.hpLossOnDefeat,stats.cost,stats.heal,stats.buff,stats.loot)
+Card::Card(CardType type, const CardStats &stats) : m_effect(type), 
+m_stats(stats.force, stats.hpLossOnDefeat, stats.cost, stats.heal, stats.buff, stats.loot)
 {
 }
 
-void Card::applyEncounter(Player &player) const
-{
-    if (m_effect == CardType::Battle)
-    {
-        if (player.getAttackStrength() >= m_stats.force)
+static void handleBattleType(Player &player, int force, int loot, int hpLossOnDefeat){
+if (player.getAttackStrength() >= force)
         {
-            if (m_stats.loot >= 0)
+            if (loot >= 0)
             {
-                player.addCoins(m_stats.loot);
+                player.addCoins(loot);
             }
             player.levelUp();
             printBattleResult(true);
         }
         else
         {
-            if (m_stats.hpLossOnDefeat > 0)
+            if (hpLossOnDefeat > 0)
             {
-                player.damage(m_stats.hpLossOnDefeat);
+                player.damage(hpLossOnDefeat);
             }
             printBattleResult(false);
         }
+}
+
+void Card::applyEncounter(Player &player) const
+{
+    if (m_effect == CardType::Battle)
+    {
+        handleBattleType(player, m_stats.force, m_stats.loot, m_stats.hpLossOnDefeat);
     }
     else if (m_effect == CardType::Treasure)
     {
-        if(m_stats.loot>=0)
-        player.addCoins(m_stats.loot);
+        if (m_stats.loot >= 0)
+            player.addCoins(m_stats.loot);
     }
     else if (m_effect == CardType::Heal)
     {
-        
-            if (player.pay(m_stats.cost))
-            {
-                player.heal(m_stats.heal);
-            }
-        
+        if (player.pay(m_stats.cost))
+        {
+            player.heal(m_stats.heal);
+        }
     }
     else if (m_effect == CardType::Buff)
     {
-
         if (player.pay(m_stats.cost))
         {
             player.buff(m_stats.buff);

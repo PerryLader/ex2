@@ -14,7 +14,7 @@ Player::Player(const char *playerName, const int maxHp, const int force)
     }
     m_name[nameSize] = '\0';
     m_level = 1;
-    if (force < 0)
+    if (force <= 0)
     {
         this->m_force = 5;
     }
@@ -23,7 +23,7 @@ Player::Player(const char *playerName, const int maxHp, const int force)
         this->m_force = force;
     }
 
-    if (maxHp < 0)
+    if (maxHp <= 0)
     {
         this->m_maxHp = 100;
         m_curHp = 100;
@@ -33,7 +33,6 @@ Player::Player(const char *playerName, const int maxHp, const int force)
         this->m_maxHp = maxHp;
         m_curHp = maxHp;
     }
-
     m_coins = 0;
 }
 Player::Player(const Player &player) : m_level(player.m_level),
