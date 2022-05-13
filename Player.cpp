@@ -4,12 +4,7 @@
 #include "utilities.h"
 #include <cstring>
 
-Player::Player(const char *playerName, const int maxHp, const int force):
-m_level(1),
-m_force(force),
-m_maxHp(maxHp),
-m_curHp(maxHp),
-m_coins(0)
+Player::Player(const char *playerName, const int maxHp, const int force)
 {
     int nameSize = strlen(playerName);
     m_name = new char[nameSize + 1];
@@ -18,14 +13,34 @@ m_coins(0)
         m_name[i] = playerName[i];
     }
     m_name[nameSize] = '\0';
-    
+    m_level = 1;
+    if (force < 0)
+    {
+        this->m_force = 5;
+    }
+    else
+    {
+        this->m_force = force;
+    }
+
+    if (maxHp < 0)
+    {
+        this->m_maxHp = 100;
+        m_curHp = 100;
+    }
+    else
+    {
+        this->m_maxHp = maxHp;
+        m_curHp = maxHp;
+    }
+
+    m_coins = 0;
 }
-Player::Player(const Player &player):
-m_level(player.m_level),
-m_force(player.m_force),
-m_maxHp(player.m_maxHp),
-m_curHp(player.m_curHp),
-m_coins(player.m_coins)
+Player::Player(const Player &player) : m_level(player.m_level),
+                                       m_force(player.m_force),
+                                       m_maxHp(player.m_maxHp),
+                                       m_curHp(player.m_curHp),
+                                       m_coins(player.m_coins)
 {
     int nameSize = strlen(player.m_name);
     m_name = new char[nameSize + 1];
@@ -34,8 +49,6 @@ m_coins(player.m_coins)
         m_name[i] = player.m_name[i];
     }
     m_name[nameSize] = '\0';
-    
-    
 }
 // distractor
 Player::~Player()
@@ -87,16 +100,19 @@ int Player::getAttackStrength()
 }
 bool Player::isKnockedOut()
 {
+
     return (m_curHp <= 0);
 }
 bool Player::pay(const int coinsSize)
 {
-    if (m_coins < coinsSize || coinsSize < 0)
+    if (m_coins < coinsSize)
     {
         return false;
     }
-
-    m_coins -= coinsSize;
+    if (coinsSize > 0)
+    {
+        m_coins -= coinsSize;
+    }
     return true;
 }
 void Player::heal(const int healSize)
@@ -115,6 +131,10 @@ void Player::damage(const int dmgSize)
     if (dmgSize > 0)
     {
         m_curHp = m_curHp - dmgSize;
+    }
+    if (m_curHp < 0)
+    {
+        m_curHp = 0;
     }
 }
 void Player::addCoins(const int coinsSize)
